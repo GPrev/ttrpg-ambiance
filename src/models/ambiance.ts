@@ -1,25 +1,37 @@
-interface ambiance {
-  backgournd: image;
-  music: audio;
-  sounds: audio[];
+export interface Ambiance {
+  name: string;
+  backgournd: Image;
+  music: Audio;
+  sounds: Audio[];
 }
+export type AmbianceDict = { [key:string]: Ambiance };
 
-interface imageSource {
+export interface Playlist {
+  name: string;
+  ambiances: Ambiance[];
+}
+export type PlaylistDict = { [key:string]: Playlist };
+
+export interface ImageSource {
+  name: string;
   url: string
 }
+export type ImageSourceDict = { [key:string]: ImageSource };
 
-interface image {
-  source: imageSource
+export interface Image {
+  source: ImageSource
 }
+export type ImageDict = { [key:string]: Image };
 
-interface audioSource {
+export interface AudioSource {
+  name: string;
   url: string;
   volume: string;
 }
+export type AudioSourceDict = { [key:string]: AudioSource };
 
-interface audio {
-  source: audioSource;
+export interface Audio {
+  source: AudioSource;
   volume: string;
 }
-
-export { ambiance, image, imageSource, audio, audioSource }
+export type AudioDict = { [key:string]: Audio };

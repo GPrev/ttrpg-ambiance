@@ -4,8 +4,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useImagesStore } from './stores/images-store';
 
 export default defineComponent({
-  name: 'App'
-})
+  name: 'App',
+
+  async mounted() {
+    const imagesStore = useImagesStore();
+    imagesStore.setup();
+  },
+});
 </script>
