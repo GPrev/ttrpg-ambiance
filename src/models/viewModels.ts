@@ -1,37 +1,35 @@
 export interface Ambiance {
+  key: string | null;
   name: string;
-  background: Image;
-  music: Audio;
+  background: Image | null;
+  music: Audio | null;
   sounds: Audio[];
 }
-export type AmbianceDict = { [key:string]: Ambiance };
 
 export interface Playlist {
+  key: string | null;
   name: string;
   ambiances: Ambiance[];
 }
-export type PlaylistDict = { [key:string]: Playlist };
 
 export interface ImageSource {
-  name: string;
-  url: string
-}
-export type ImageSourceDict = { [key:string]: ImageSource };
-
-export interface Image {
-  source: ImageSource
-}
-export type ImageDict = { [key:string]: Image };
-
-export interface AudioSource {
+  key: string | null;
   name: string;
   url: string;
-  volume: string;
 }
-export type AudioSourceDict = { [key:string]: AudioSource };
+
+export interface Image {
+  source: ImageSource;
+}
+
+export interface AudioSource {
+  key: string | null;
+  name: string;
+  url: string;
+  volume: number;
+}
 
 export interface Audio {
   source: AudioSource;
-  volume: string;
+  volume: number;
 }
-export type AudioDict = { [key:string]: Audio };

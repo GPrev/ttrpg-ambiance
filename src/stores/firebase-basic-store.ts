@@ -15,7 +15,7 @@ import { StrDict } from 'src/models/basicTypes';
 
 export function defineFirebaseBasicStore<DataModel, Model>(
   storeName: string,
-  convertDataModel: (data: DataModel) => Model,
+  convertDataModel: (key: string, data: DataModel) => Model,
   convertToDataModel: (model: Model) => DataModel
 ) {
   const dataCollection = collection(
@@ -49,17 +49,20 @@ export function defineFirebaseBasicStore<DataModel, Model>(
     },
 
     actions: {
-      setup() {
-        this.loading = true;
+      async setup() {
+        return new Promise((resolve) => {
+          this.loading = true;
 
-        onSnapshot(dataCollection, (ds) => {
-          this.data = {};
-          if (ds.empty === false) {
-            for (const doc of ds.docs) {
-              this.data[doc.id] = convertDataModel(doc.data());
+          onSnapshot(dataCollection, (ds) => {
+            this.data = {};
+            if (ds.empty === false) {
+              for (const doc of ds.docs) {
+                this.data[doc.id] = convertDataModel(doc.id, doc.data());
+              }
             }
-          }
-          this.loading = false;
+            this.loading = false;
+            resolve(true);
+          });
         });
       },
 

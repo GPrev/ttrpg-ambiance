@@ -2,8 +2,9 @@ import { ImageSourceData } from '../models/databaseModels';
 import { ImageSource } from '../models/viewModels';
 import { defineFirebaseBasicStore } from './firebase-basic-store';
 
-function convertDataModel(data: ImageSourceData): ImageSource {
+function convertDataModel(key: string, data: ImageSourceData): ImageSource {
   return {
+    key: key,
     name: data.name,
     url: data.url,
   };
