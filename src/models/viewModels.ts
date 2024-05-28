@@ -1,6 +1,6 @@
 export interface Ambiance {
   name: string;
-  backgournd: Image;
+  background: Image;
   music: Audio;
   sounds: Audio[];
 }

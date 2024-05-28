@@ -22,7 +22,7 @@ import { useImagesStore } from 'src/stores/images-store';
 const imagesStore = useImagesStore();
 
 const images = computed(() => {
-  return imagesStore.getImages();
+  return imagesStore.getAll();
 });
 const isLoading = computed(() => {
   return imagesStore.isLoading();
