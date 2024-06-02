@@ -6,7 +6,7 @@
         v-for="[playlistKey, playlist] of Object.entries(playlists)"
         :key="playlistKey"
       >
-        <PlaylistView :playlist="playlist" />
+        <PlaylistView :playlist="playlist" class="image-vignette" />
 
         <q-card-section>
           <div class="text-h6">{{ playlist.name }}</div>

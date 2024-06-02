@@ -7,21 +7,33 @@
           v-for="[imageKey, image] of Object.entries(images)"
           :key="imageKey"
         >
-          <ImageSourceView :image="image" />
+          <ImageSourceView :image="image" class="image-vignette" />
 
-          <q-card-section>
-            <div class="text-h6">{{ image.name }}</div>
+          <q-card-section horizontal class="justify-between">
+            <q-card-section>
+              <div class="text-h6">{{ image.name }}</div>
+            </q-card-section>
+            <q-card-actions>
+              <q-btn
+                flat
+                round
+                color="accent"
+                icon="edit"
+                @click="
+                  (
+                    $refs.editDialog as typeof ImageSourceEditDialog
+                  ).editExisting(image)
+                "
+              />
+              <q-btn
+                flat
+                round
+                color="red"
+                icon="delete"
+                @click="imagesStore.delete(image)"
+              />
+            </q-card-actions>
           </q-card-section>
-          <q-btn
-            fab
-            icon="edit"
-            color="accent"
-            @click="
-              ($refs.editDialog as typeof ImageSourceEditDialog).editExisting(
-                image
-              )
-            "
-          />
         </q-card>
       </div>
       <q-page-sticky position="bottom-right" :offset="[18, 18]">

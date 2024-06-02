@@ -2,9 +2,7 @@
   <div class="text-center q-pa-md flex flex-center">
     <q-spinner v-if="isLoading" color="primary" size="3em" />
     <div v-else class="flex column">
-      <q-card>
-        <AmbianceView :ambiance="ambiance" />
-      </q-card>
+      <AmbianceView :ambiance="ambiance" class="image-vignette" />
       <q-select
         class="col"
         v-model="playlist"

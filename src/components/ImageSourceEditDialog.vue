@@ -3,7 +3,7 @@
     <q-card style="min-width: 350px">
       <q-card-section>
         <div class="flex column" v-if="editedImage != null">
-          <ImageSourceView :image="editedImage" />
+          <ImageSourceView :image="editedImage" class="image-vignette" />
           <q-input v-model="editedImage.name" label="Name" />
           <q-input v-model="editedImage.url" label="URL" />
         </div>

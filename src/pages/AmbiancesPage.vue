@@ -6,7 +6,7 @@
         v-for="[ambianceKey, ambiance] of Object.entries(ambiances)"
         :key="ambianceKey"
       >
-        <AmbianceView :ambiance="ambiance" />
+        <AmbianceView :ambiance="ambiance" class="image-vignette" />
 
         <q-card-section>
           <div class="text-h6">{{ ambiance.name }}</div>
