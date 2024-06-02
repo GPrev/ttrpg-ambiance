@@ -64,26 +64,18 @@ export const useGlobalStore = defineStore('global', {
       });
     },
 
-    changeAmbiance(key: string) {
-      if (!key) {
-        console.error('Could not find key');
-      } else {
-        const itemDoc = doc(globalCollection, 'control');
-        updateDoc(itemDoc, {
-          ambianceKey: key,
-        });
-      }
+    setAmbiance(key: string) {
+      const itemDoc = doc(globalCollection, 'control');
+      updateDoc(itemDoc, {
+        ambianceKey: key,
+      });
     },
 
-    changePlaylist(key: string) {
-      if (!key) {
-        console.error('Could not find key');
-      } else {
-        const itemDoc = doc(globalCollection, 'control');
-        updateDoc(itemDoc, {
-          playlistKey: key,
-        });
-      }
+    setPlaylist(key: string) {
+      const itemDoc = doc(globalCollection, 'control');
+      updateDoc(itemDoc, {
+        playlistKey: key,
+      });
     },
   },
 });

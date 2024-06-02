@@ -11,9 +11,9 @@ import {
 } from 'firebase/firestore';
 import { defineStore } from 'pinia';
 import { db } from 'src/boot/firebase';
-import { StrDict } from 'src/models/basicTypes';
+import { KeyedObject, StrDict } from 'src/models/basicTypes';
 
-export function defineFirebaseBasicStore<DataModel, Model>(
+export function defineFirebaseBasicStore<DataModel, Model extends KeyedObject>(
   storeName: string,
   convertDataModel: (key: string, data: DataModel) => Model,
   convertToDataModel: (model: Model) => DataModel
@@ -66,28 +66,26 @@ export function defineFirebaseBasicStore<DataModel, Model>(
         });
       },
 
-      addImage(
-        model: Model
-      ): Promise<DocumentReference<DataModel, DocumentData>> {
+      add(model: Model): Promise<DocumentReference<DataModel, DocumentData>> {
         return addDoc(dataCollection, convertToDataModel(model));
       },
 
-      setImage(key: string, model: Model) {
-        if (!key) {
-          console.error('Could not find key');
-        } else {
-          const itemDoc = doc(dataCollection, key);
-          setDoc(itemDoc, convertToDataModel(model));
+      set(model: Model): Promise<void> {
+        if (!model.key || model.key in this.data) {
+          console.error(`Bad key for setting : '${model.key}'`);
+          return Promise.resolve();
         }
+        const itemDoc = doc(dataCollection, model.key);
+        return setDoc(itemDoc, convertToDataModel(model));
       },
 
-      deleteImage(key: string) {
-        if (!key) {
-          console.error('Could not find key');
-        } else {
-          const itemDoc = doc(dataCollection, key);
-          deleteDoc(itemDoc);
+      delete(model: Model): Promise<void> {
+        if (!model.key || model.key in this.data) {
+          console.error(`Bad key for setting : '${model.key}'`);
+          return Promise.resolve();
         }
+        const itemDoc = doc(dataCollection, model.key);
+        return deleteDoc(itemDoc);
       },
     },
   });
