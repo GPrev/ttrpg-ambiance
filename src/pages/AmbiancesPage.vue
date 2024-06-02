@@ -6,10 +6,7 @@
         v-for="[ambianceKey, ambiance] of Object.entries(ambiances)"
         :key="ambianceKey"
       >
-        <img
-          v-if="ambiance.background?.source"
-          :src="ambiance.background?.source.url"
-        />
+        <AmbianceView :ambiance="ambiance" />
 
         <q-card-section>
           <div class="text-h6">{{ ambiance.name }}</div>
@@ -20,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import AmbianceView from 'src/components/AmbianceView.vue';
 import { computed } from 'vue';
 import { useAmbiancesStore } from 'src/stores/ambiances-store';
 const ambiancesStore = useAmbiancesStore();

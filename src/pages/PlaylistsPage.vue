@@ -1,24 +1,31 @@
 <template>
-  <div class="text-center q-pa-md flex flex-center">
-    <div>
-      <div style="font-size: 30vh">
-        ?
-      </div>
+  <q-page class="text-center q-pa-md flex flex-center">
+    <q-spinner v-if="isLoading" color="primary" size="3em" />
+    <div v-if="!isLoading" class="q-pa-md row items-start q-gutter-md">
+      <q-card
+        v-for="[playlistKey, playlist] of Object.entries(playlists)"
+        :key="playlistKey"
+      >
+        <PlaylistView :playlist="playlist" />
 
-      <div class="text-h2" style="opacity:.4">
-        Nothing here yet
-      </div>
+        <q-card-section>
+          <div class="text-h6">{{ playlist.name }}</div>
+        </q-card-section>
+      </q-card>
     </div>
-  </div>
+  </q-page>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import PlaylistView from 'src/components/PlaylistView.vue';
+import { computed } from 'vue';
+import { usePlaylistsStore } from 'src/stores/playlists-store';
+const playlistsStore = usePlaylistsStore();
 
-export default defineComponent({
-  name: 'IndexPage',
-  setup () {
-    return {};
-  }
+const playlists = computed(() => {
+  return playlistsStore.getAll();
+});
+const isLoading = computed(() => {
+  return playlistsStore.isLoading();
 });
 </script>

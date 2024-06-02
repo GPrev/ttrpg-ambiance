@@ -6,7 +6,7 @@
         v-for="[imageKey, image] of Object.entries(images)"
         :key="imageKey"
       >
-        <img :src="image.url" />
+        <ImageSourceView :image="image" />
 
         <q-card-section>
           <div class="text-h6">{{ image.name }}</div>
@@ -17,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import ImageSourceView from 'src/components/ImageSourceView.vue';
 import { computed } from 'vue';
 import { useImagesStore } from 'src/stores/images-store';
 const imagesStore = useImagesStore();
