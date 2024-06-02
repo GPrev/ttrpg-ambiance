@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import { db } from 'src/boot/firebase';
 import { useAmbiancesStore } from './ambiances-store';
 import { usePlaylistsStore } from './playlists-store';
+import { Ambiance, Playlist } from 'src/models/viewModels';
 
 interface Control {
   ambianceKey: string;
@@ -64,17 +65,29 @@ export const useGlobalStore = defineStore('global', {
       });
     },
 
-    setAmbiance(key: string) {
+    setAmbianceKey(key: string) {
       const itemDoc = doc(globalCollection, 'control');
       updateDoc(itemDoc, {
         ambianceKey: key,
       });
     },
+    setAmbiance(ambiance: Ambiance) {
+      const itemDoc = doc(globalCollection, 'control');
+      updateDoc(itemDoc, {
+        ambianceKey: ambiance.key,
+      });
+    },
 
-    setPlaylist(key: string) {
+    setPlaylistKey(key: string) {
       const itemDoc = doc(globalCollection, 'control');
       updateDoc(itemDoc, {
         playlistKey: key,
+      });
+    },
+    setPlaylist(playlist: Playlist) {
+      const itemDoc = doc(globalCollection, 'control');
+      updateDoc(itemDoc, {
+        playlistKey: playlist.key,
       });
     },
   },
