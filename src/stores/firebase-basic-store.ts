@@ -71,7 +71,7 @@ export function defineFirebaseBasicStore<DataModel, Model extends KeyedObject>(
       },
 
       set(model: Model): Promise<void> {
-        if (!model.key || model.key in this.data) {
+        if (!model.key || !(model.key in this.data)) {
           console.error(`Bad key for setting : '${model.key}'`);
           return Promise.resolve();
         }
@@ -80,8 +80,8 @@ export function defineFirebaseBasicStore<DataModel, Model extends KeyedObject>(
       },
 
       delete(model: Model): Promise<void> {
-        if (!model.key || model.key in this.data) {
-          console.error(`Bad key for setting : '${model.key}'`);
+        if (!model.key || !(model.key in this.data)) {
+          console.error(`Bad key for deleting : '${model.key}'`);
           return Promise.resolve();
         }
         const itemDoc = doc(dataCollection, model.key);
