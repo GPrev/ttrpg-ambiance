@@ -1,5 +1,5 @@
 <template>
-  <div class="fullscreen text-center q-pa-md flex column flex-center">
+  <div class="fullscreen text-center flex column flex-center">
     <AmbianceView :ambiance="ambiance" />
   </div>
 </template>
