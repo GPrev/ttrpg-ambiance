@@ -1,7 +1,5 @@
 <template>
-  <div class="fullscreen text-center flex column flex-center">
-    <AmbianceView :ambiance="ambiance" />
-  </div>
+  <AmbianceView class="fullscreen" :ambiance="ambiance" />
 </template>
 
 <script lang="ts" setup>

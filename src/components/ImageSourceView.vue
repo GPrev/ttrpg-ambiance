@@ -1,5 +1,9 @@
 <template>
-  <q-img v-if="props.image" :src="props.image.url" :ratio="16 / 9">
+  <q-img
+    v-if="props.image && props.image.url"
+    :src="props.image.url"
+    :ratio="16 / 9"
+  >
     <template v-slot:error>
       <div class="flex flex-center bg-grey" style="aspect-ratio: 16/9">
         <q-icon name="image_not_supported" size="xl" color="white" />

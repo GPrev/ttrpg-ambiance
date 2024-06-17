@@ -21,19 +21,23 @@ const routes: RouteRecordRaw[] = [
     children: [{ path: '', component: () => import('pages/ImagesPage.vue') }],
   },
   {
-    path: '/sounds',
+    path: '/audios',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/SoundsPage.vue') }],
+    children: [{ path: '', component: () => import('pages/AudiosPage.vue') }],
   },
   {
     path: '/ambiances',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/AmbiancesPage.vue') }],
+    children: [
+      { path: '', component: () => import('pages/AmbiancesPage.vue') },
+    ],
   },
   {
     path: '/playlists',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/PlaylistsPage.vue') }],
+    children: [
+      { path: '', component: () => import('pages/PlaylistsPage.vue') },
+    ],
   },
 
   // Always leave this as last one,

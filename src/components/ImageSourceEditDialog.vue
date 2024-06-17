@@ -1,9 +1,9 @@
 <template>
   <q-dialog v-model="popupOpen">
-    <q-card style="min-width: 350px">
+    <q-card>
       <q-card-section>
-        <div class="flex column" v-if="editedImage != null">
-          <ImageSourceView :image="editedImage" class="image-vignette" />
+        <div class="flex column no-wrap" v-if="editedImage != null">
+          <ImageSourceView :image="editedImage" class="image-big-vignette" />
           <q-input v-model="editedImage.name" label="Name" />
           <q-input v-model="editedImage.url" label="URL" />
         </div>
