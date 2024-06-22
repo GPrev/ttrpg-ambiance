@@ -39,6 +39,20 @@ const routes: RouteRecordRaw[] = [
       { path: '', component: () => import('pages/PlaylistsPage.vue') },
     ],
   },
+  {
+    path: '/wildsea',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: 'tracks',
+        component: () => import('pages/wildsea/WildseaTracksPage.vue'),
+      },
+      {
+        path: 'tracklists',
+        component: () => import('pages/wildsea/WildseaTracklistsPage.vue'),
+      },
+    ],
+  },
 
   // Always leave this as last one,
   // but you can also remove it

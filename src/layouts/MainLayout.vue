@@ -2,24 +2,11 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title> TTRPG Ambiance </q-toolbar-title>
 
-        <q-btn
-          round
-          flat
-          color="white"
-          :icon="themeIcon"
-          @click="toggleDarkMode"
-        />
+        <q-btn round flat color="white" :icon="themeIcon" @click="toggleDarkMode" />
       </q-toolbar>
     </q-header>
 
@@ -27,11 +14,7 @@
       <q-list>
         <q-item-label header> TTRPG Ambiance </q-item-label>
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 
@@ -83,11 +66,23 @@ const essentialLinks = [
     icon: 'slideshow',
     link: 'playlists',
   },
+  {
+    title: 'Wildsea Tracks',
+    caption: '/wildsea/tracks',
+    icon: 'more_horiz',
+    link: 'wildsea/tracks',
+  },
+  {
+    title: 'Wildsea Tracklists',
+    caption: '/wildsea/tracklists',
+    icon: 'drag_indicator',
+    link: 'wildsea/tracklists',
+  },
 ];
 
 const leftDrawerOpen = ref(false);
 
-function toggleLeftDrawer() {
+function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 
@@ -95,7 +90,7 @@ const themeIcon = computed(() => {
   return Dark.isActive ? 'lightbulb_outline' : 'lightbulb';
 });
 
-function toggleDarkMode() {
+function toggleDarkMode () {
   Dark.toggle();
   console.log('Theme is now ' + Dark.isActive ? 'dark' : 'light');
 }

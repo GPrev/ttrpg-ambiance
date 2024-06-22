@@ -3,15 +3,23 @@ import { defineStore } from 'pinia';
 import { db } from 'src/boot/firebase';
 import { useAmbiancesStore } from './ambiances-store';
 import { usePlaylistsStore } from './playlists-store';
+import { useWildseaTracklistsStore } from './wildsea/tracklists-store';
 import { Ambiance, Playlist } from 'src/models/viewModels';
+import { WildseaTracklist } from 'src/models/wildsea/viewModels';
 
 interface Control {
   ambianceKey: string;
   playlistKey: string;
 }
 
+interface WildseaControl {
+  tracklistsKeys: string[];
+  visible: boolean;
+}
+
 interface GlobalStoreState {
   control: Control;
+  wildseaControl: WildseaControl;
   loading: boolean;
 }
 
@@ -23,6 +31,10 @@ export const useGlobalStore = defineStore('global', {
       control: {
         ambianceKey: '',
         playlistKey: '',
+      },
+      wildseaControl: {
+        tracklistsKeys: [],
+        visible: false,
       },
       loading: true,
     };
@@ -46,6 +58,19 @@ export const useGlobalStore = defineStore('global', {
       const playlistStore = usePlaylistsStore();
       return () => playlistStore.get(state.control.playlistKey);
     },
+    getWildseaTracklistKeys(state: GlobalStoreState) {
+      return () => state.wildseaControl.tracklistsKeys;
+    },
+    getWildseaTracklists(state: GlobalStoreState) {
+      const tracklistStore = useWildseaTracklistsStore();
+      return () =>
+        state.wildseaControl.tracklistsKeys.map((tracklistKey) =>
+          tracklistStore.get(tracklistKey)
+        );
+    },
+    isWildseaVisible(state: GlobalStoreState) {
+      return () => state.wildseaControl.visible;
+    },
   },
 
   actions: {
@@ -58,6 +83,9 @@ export const useGlobalStore = defineStore('global', {
             if (doc.id == 'control') {
               this.control.ambianceKey = doc.data().ambianceKey;
               this.control.playlistKey = doc.data().playlistKey;
+            } else if (doc.id == 'wildsea_control') {
+              this.wildseaControl.tracklistsKeys = doc.data().tracklists;
+              this.wildseaControl.visible = doc.data().visible;
             }
           }
         }
@@ -88,6 +116,25 @@ export const useGlobalStore = defineStore('global', {
       const itemDoc = doc(globalCollection, 'control');
       updateDoc(itemDoc, {
         playlistKey: playlist.key,
+      });
+    },
+
+    setWildseaTracklistKeys(keys: string[]) {
+      const itemDoc = doc(globalCollection, 'wildsea_control');
+      updateDoc(itemDoc, {
+        tracklists: keys,
+      });
+    },
+    setWildseaTracklists(tracklists: WildseaTracklist[]) {
+      const itemDoc = doc(globalCollection, 'wildsea_control');
+      updateDoc(itemDoc, {
+        tracklists: tracklists.map((tracklist) => tracklist.key),
+      });
+    },
+    setWildseaVisible(visible: boolean) {
+      const itemDoc = doc(globalCollection, 'wildsea_control');
+      updateDoc(itemDoc, {
+        visible: visible,
       });
     },
   },
