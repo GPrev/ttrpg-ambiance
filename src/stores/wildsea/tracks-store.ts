@@ -6,6 +6,7 @@ function convertDataModel(key: string, data: WildseaTrackData): WildseaTrack {
   return {
     key: key,
     name: data.name,
+    visible: data.visible,
     length: data.length,
     progress: data.progress,
     burn: data.burn,
@@ -15,6 +16,7 @@ function convertDataModel(key: string, data: WildseaTrackData): WildseaTrack {
 function convertToDataModel(model: WildseaTrack): WildseaTrackData {
   return {
     name: model.name,
+    visible: model.visible,
     length: model.length,
     progress: model.progress,
     burn: model.burn,

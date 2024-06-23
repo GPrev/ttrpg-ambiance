@@ -42,6 +42,7 @@ function editNew () {
   editedTrack.value = {
     key: '',
     name: 'New Track',
+    visible: true,
     length: 3,
     progress: 0,
     burn: 0,
@@ -52,6 +53,7 @@ function editExisting (track: WildseaTrack) {
   editedTrack.value = {
     key: track.key,
     name: track.name,
+    visible: track.visible,
     length: track.length,
     progress: track.progress,
     burn: track.burn,
