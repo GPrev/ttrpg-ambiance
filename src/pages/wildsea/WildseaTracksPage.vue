@@ -5,7 +5,7 @@
       <div class="q-pa-md row items-start q-gutter-md">
         <q-card v-for="[imageKey, track] of Object.entries(tracks)" :key="imageKey">
           <q-card-section horizontal class="justify-between">
-            <WildseaTrackView :track="track" class="image-vignette" />
+            <WildseaTrackView :track="track" class="size-vignette q-ma-xs" size="sm" />
             <q-card-actions horizontal>
               <q-btn flat round color="accent" icon="edit" @click="
                 (

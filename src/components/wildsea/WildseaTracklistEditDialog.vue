@@ -8,8 +8,8 @@
             <template v-slot:control>
               <q-list class="col">
                 <q-item v-for="track in editedTracklist.tracks" :key="track.key || ''">
-                  <q-item-section>
-                    <WildseaTrackView :track="track" />
+                  <q-item-section class="no-wrap">
+                    <WildseaTrackView :track="track" size="sm" />
                   </q-item-section>
                   <q-item-section side>
                     <q-btn flat round color="red" icon="delete" @click="removeTrack(track)" />
@@ -22,7 +22,7 @@
                       <q-item v-for="track in absentTracks" :key="track.key || ''" clickable v-close-popup
                         @click="addTrack(track)">
                         <q-item-section>
-                          <WildseaTrackView :track="track" />
+                          <WildseaTrackView :track="track" class="size-vignette" size="sm" />
                         </q-item-section>
                       </q-item>
                     </q-list>
