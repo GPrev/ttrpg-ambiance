@@ -1,8 +1,8 @@
 <template>
   <div class="q-pa-md flex flex-center">
     <q-spinner v-if="isLoading" color="primary" size="3em" />
-    <div v-else class="flex column">
-      <AmbianceView :ambiance="ambiance" class="image-vignette" />
+    <div v-else class="flex column size-big-vignette">
+      <AmbianceView :ambiance="ambiance" class="image-vignette" style="align-self: center" />
       <q-select class="col" v-model="playlist" :options="playlists" label="Playlist" option-label="name"
         option-value="key" />
       <q-select class="col" v-model="ambiance" :options="ambiances" label="Ambiance" option-label="name"
@@ -10,27 +10,36 @@
       <h5 class="q-mb-xs">Wildsea</h5>
       <q-checkbox class="col" v-model="wildseaVisible" label="Display Tracks"
         @update:model-value="(value) => globalStore.setWildseaVisible(value)" />
-      <q-field label="Tracks" stack-label outlined>
+      <q-field label="Tracks" class="max-100" stack-label outlined>
         <template v-slot:control>
-          <q-list class="col" separator>
-            <q-item v-for="tracklist in wildseaTracklists" :key="tracklist.key || ''">
-              <q-item-section>
-                <div class="text-h6">{{ tracklist.name }}</div>
-                <q-list>
-                  <q-item v-for="track in tracklist.tracks" :key="track.key || ''">
-                    <q-item-section> • {{ track.name }} </q-item-section>
-                    <q-item-section side>
-                      <q-checkbox v-model="track.visible" checked-icon="visibility" unchecked-icon="visibility_off"
-                        @update:model-value="(value) => updateTrackVisibility(track, value)
-                          " />
-                    </q-item-section>
-                  </q-item>
-                </q-list>
-              </q-item-section>
-              <q-item-section side top>
-                <q-btn flat round color="red" icon="delete" @click="removeTracklist(tracklist)" />
-              </q-item-section>
-            </q-item>
+          <q-list class="col">
+            <template v-for="tracklist in wildseaTracklists" :key="tracklist.key || ''">
+              <q-item>
+                <q-item-section>
+                  <div class="text-h6">{{ tracklist.name }}</div>
+                </q-item-section>
+                <q-item-section side top>
+                  <q-btn flat round color="red" icon="delete" @click="removeTracklist(tracklist)" />
+                </q-item-section>
+              </q-item>
+              <q-item dense v-for="track in tracklist.tracks" :key="track.key || ''">
+                <q-item-section class="ellipsis"> • {{ track.name }} </q-item-section>
+                <q-item-section side top>
+                  <div class="q-gutter-xs">
+                    <q-btn dense class="q-ma-none" flat round color="primary" icon="cancel" @click="burnTrack(track)"
+                      :disable="!canBurnTrack(track)" />
+                    <q-btn dense class="q-ma-none" flat round color="primary" icon="radio_button_unchecked"
+                      @click="clearTrack(track)" :disable="!canClearTrack(track)" />
+                    <q-btn dense class="q-ma-none" flat round color="primary" icon="block" @click="markTrack(track)"
+                      :disable="!canMarkTrack(track)" />
+                    <q-checkbox dense class="q-ma-none q-pa-sm" v-model="track.visible" checked-icon="visibility"
+                      unchecked-icon="visibility_off"
+                      @update:model-value="(value) => updateTrackVisibility(track, value)" />
+                  </div>
+                </q-item-section>
+              </q-item>
+              <q-separator />
+            </template>
             <q-item class="justify-center">
               <q-btn-dropdown color="primary" label="Add" icon="add" v-model="isAddTracklistDropdownOpen"
                 :disable="absentWildseaTracklists.length == 0">
@@ -158,6 +167,38 @@ function removeTracklist (tracklist: WildseaTracklist) {
 
 function updateTrackVisibility (track: WildseaTrack, visible: boolean) {
   if (track.visible != visible) track.visible = visible;
+  tracksStore.set(track);
+}
+
+function canClearTrack (track: WildseaTrack) {
+  return track.progress > 0;
+}
+
+function canMarkTrack (track: WildseaTrack) {
+  return track.progress < track.length;
+}
+
+function canBurnTrack (track: WildseaTrack) {
+  return track.burn < track.length;
+}
+
+function clearTrack (track: WildseaTrack) {
+  track.progress--;
+  if (track.progress < 0) track.progress = 0;
+  if (track.burn > track.progress) track.burn = track.progress;
+  tracksStore.set(track);
+}
+
+function markTrack (track: WildseaTrack) {
+  track.progress++;
+  if (track.progress > track.length) track.progress = track.length;
+  tracksStore.set(track);
+}
+
+function burnTrack (track: WildseaTrack) {
+  track.burn++;
+  if (track.burn > track.length) track.burn = track.length;
+  if (track.burn > track.progress) track.progress = track.burn;
   tracksStore.set(track);
 }
 </script>
