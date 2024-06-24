@@ -2,7 +2,7 @@
   <q-page class="text-center q-pa-md flex flex-center">
     <q-spinner v-if="isLoading" color="primary" size="3em" />
     <div v-else>
-      <div class="q-pa-md row items-start q-gutter-md">
+      <div class="q-pa-md row items-start justify-center q-gutter-md">
         <q-card v-for="[imageKey, track] of Object.entries(tracks)" :key="imageKey">
           <q-card-section horizontal class="justify-between">
             <WildseaTrackView :track="track" class="size-vignette q-ma-xs" size="sm" />

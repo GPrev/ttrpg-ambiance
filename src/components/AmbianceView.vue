@@ -7,6 +7,6 @@ import ImageView from './ImageView.vue';
 import { Ambiance } from 'src/models/viewModels';
 
 const props = defineProps<{
-  ambiance: Ambiance | null;
+  ambiance: Ambiance | null | undefined;
 }>();
 </script>

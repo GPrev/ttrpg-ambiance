@@ -49,10 +49,10 @@ const essentialLinks = [
     link: 'images',
   },
   {
-    title: 'Sound sources',
-    caption: '/sounds',
+    title: 'Audio sources',
+    caption: '/audios',
     icon: 'music_note',
-    link: 'sounds',
+    link: 'audios',
   },
   {
     title: 'Ambiances',

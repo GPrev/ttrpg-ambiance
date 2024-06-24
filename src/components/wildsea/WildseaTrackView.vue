@@ -13,12 +13,11 @@
 
 <script setup lang="ts">
 import { WildseaTrack } from 'src/models/wildsea/viewModels';
-import { PropType } from 'vue';
 
-const props = defineProps({
-  track: { type: Object as PropType<WildseaTrack | null> },
-  size: { type: Object as PropType<string>, required: false },
-});
+const props = defineProps<{
+  track: WildseaTrack | null,
+  size?: string | undefined,
+}>();
 
 function getIconName (index: number) {
   if (props.track) {
