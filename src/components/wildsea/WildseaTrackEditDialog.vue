@@ -4,9 +4,9 @@
       <q-card-section>
         <div class="flex column no-wrap" v-if="editedTrack != null">
           <q-input v-model="editedTrack.name" label="Name" />
-          <q-input v-model.number="editedTrack.length" type="number" label="Length" />
-          <q-input v-model.number="editedTrack.progress" type="number" label="Progress" />
-          <q-input v-model.number="editedTrack.burn" type="number" label="Burn" />
+          <IntegerInput v-model="editedTrack.length" label="Length" />
+          <IntegerInput v-model="editedTrack.progress" label="Progress" />
+          <IntegerInput v-model="editedTrack.burn" label="Burn" />
         </div>
       </q-card-section>
       <q-card-actions align="right">
@@ -21,6 +21,7 @@
 import { computed, ref, Ref } from 'vue';
 import { WildseaTrack } from 'src/models/wildsea/viewModels';
 import { useWildseaTracksStore } from 'src/stores/wildsea/tracks-store';
+import IntegerInput from 'src/components/IntegerInput.vue'
 const wildseaTracksStore = useWildseaTracksStore();
 
 const emit = defineEmits<{
