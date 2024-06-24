@@ -23,6 +23,10 @@ import { WildseaTrack } from 'src/models/wildsea/viewModels';
 import { useWildseaTracksStore } from 'src/stores/wildsea/tracks-store';
 const wildseaTracksStore = useWildseaTracksStore();
 
+const emit = defineEmits<{
+  (e: 'onSave', newTrack: WildseaTrack): void
+}>();
+
 const editedTrack: Ref<WildseaTrack | null> = ref(null);
 
 const popupOpen = computed({
@@ -64,8 +68,11 @@ function save () {
   if (editedTrack.value) {
     if (editedTrack.value?.key || '' != '') {
       wildseaTracksStore.set(editedTrack.value);
+      emit('onSave', editedTrack.value);
     } else {
-      wildseaTracksStore.add(editedTrack.value);
+      wildseaTracksStore.add(editedTrack.value).then((doc) => {
+        emit('onSave', wildseaTracksStore.get(doc.id));
+      })
     }
   }
   popupOpen.value = false;
