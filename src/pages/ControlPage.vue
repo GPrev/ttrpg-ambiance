@@ -11,7 +11,8 @@
         <h5 class="q-mb-xs">Wildsea</h5>
         <q-checkbox class="col" v-model="wildseaVisible" label="Display Tracks"
           @update:model-value="(value) => globalStore.setWildseaVisible(value)" />
-        <q-field label="Tracks" class="max-100" stack-label outlined>
+        <IntegerInput v-model="wildseaTracklistSize" label="Tracklist Size" />
+        <q-field label="Tracks" class="max-100 q-mt-sm" stack-label outlined>
           <template v-slot:control>
             <q-list class="col">
               <template v-for="tracklist in wildseaTracklists" :key="tracklist.key || ''">
@@ -67,6 +68,7 @@
 </template>
 
 <script lang="ts" setup>
+import IntegerInput from 'src/components/IntegerInput.vue'
 import AmbianceView from 'src/components/AmbianceView.vue';
 import WildseaTracklistView from 'src/components/wildsea/WildseaTracklistView.vue';
 import WildseaTrackEditDialog from 'src/components/wildsea/WildseaTrackEditDialog.vue';
@@ -144,6 +146,15 @@ const wildseaVisible = computed({
   },
   set (visible: boolean) {
     globalStore.setWildseaVisible(visible);
+  },
+});
+
+const wildseaTracklistSize = computed({
+  get () {
+    return globalStore.getWildseaTracklistSize();
+  },
+  set (size: number) {
+    globalStore.setWildseaTracklistSize(size);
   },
 });
 

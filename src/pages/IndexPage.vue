@@ -3,7 +3,7 @@
   <q-list class="fullscreen column" v-if="globalStore.isWildseaVisible()">
     <q-item v-for="track in displayedTracks" :key="track.key || ''">
       <q-card class="q-pa-sm" style="background-color: #ffffffcc">
-        <WildseaTrackView :track="track" />
+        <WildseaTrackView :track="track" :size="globalStore.getWildseaTracklistSize() + 'rem'" />
       </q-card>
     </q-item>
   </q-list>

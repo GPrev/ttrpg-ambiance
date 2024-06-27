@@ -1,6 +1,7 @@
 <template>
   <div text-left>
-    <div class="text-h6 q-my-none q-mx-sm text-italic ellipsis text-left">
+    <div class="q-my-none q-mx-sm text-bold text-italic ellipsis text-left"
+      :style="{ 'font-size': 'calc(' + (props.size || '2.5rem') + '/2)' }">
       {{ props.track?.name }}
     </div>
     <q-separator class="q-mb-xs" />
