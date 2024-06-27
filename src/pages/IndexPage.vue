@@ -1,6 +1,6 @@
 <template>
   <AmbianceView class="fullscreen" :ambiance="ambiance" />
-  <q-list class="fullscreen" v-if="globalStore.isWildseaVisible()">
+  <q-list class="fullscreen column" v-if="globalStore.isWildseaVisible()">
     <q-item v-for="track in displayedTracks" :key="track.key || ''">
       <q-card class="q-pa-sm" style="background-color: #ffffffcc">
         <WildseaTrackView :track="track" />
