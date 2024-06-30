@@ -2,8 +2,8 @@ import { KeyedObject } from './basicTypes';
 
 export interface Ambiance extends KeyedObject {
   name: string;
-  background: Image | null;
-  music: Audio | null;
+  background: Image;
+  music: Audio;
   sounds: Audio[];
 }
 
@@ -18,7 +18,7 @@ export interface ImageSource extends KeyedObject {
 }
 
 export interface Image {
-  source: ImageSource;
+  source: ImageSource | null;
   mirroredHorizontally: boolean;
 }
 
@@ -29,6 +29,6 @@ export interface AudioSource extends KeyedObject {
 }
 
 export interface Audio {
-  source: AudioSource;
+  source: AudioSource | null;
   volume: number;
 }

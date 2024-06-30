@@ -1,7 +1,7 @@
 export interface AmbianceData {
   name: string;
-  background: ImageData | null;
-  music: AudioData | null;
+  background: ImageData;
+  music: AudioData;
   sounds: AudioData[];
 }
 

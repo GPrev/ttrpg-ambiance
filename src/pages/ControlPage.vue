@@ -99,8 +99,14 @@ const nonePlaylist: Playlist = {
 const noneAmbiance: Ambiance = {
   name: 'None',
   key: '',
-  background: null,
-  music: null,
+  background: {
+    source: null,
+    mirroredHorizontally: false,
+  },
+  music: {
+    source: null,
+    volume: 1,
+  },
   sounds: [],
 };
 
