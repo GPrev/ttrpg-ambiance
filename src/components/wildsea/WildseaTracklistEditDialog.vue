@@ -7,12 +7,18 @@
           <q-field label="Tracks" stack-label outlined class="q-mt-sm">
             <template v-slot:control>
               <q-list class="col">
-                <q-item v-for="track in editedTracklist.tracks" :key="track.key || ''">
+                <q-item v-for="(track, index) in editedTracklist.tracks" :key="track.key || ''">
                   <q-item-section class="no-wrap">
                     <WildseaTrackView :track="track" size="sm" />
                   </q-item-section>
-                  <q-item-section side>
-                    <q-btn flat round color="red" icon="delete" @click="removeTrack(track)" />
+                  <q-item-section side top>
+                    <div class="q-gutter-xs">
+                      <q-btn dense class="q-ma-none" flat round color="primary" icon="keyboard_arrow_up"
+                        @click="moveUp(index)" :disable="!canMoveUp(index)" />
+                      <q-btn dense class="q-ma-none" flat round color="primary" icon="keyboard_arrow_down"
+                        @click="moveDown(index)" :disable="!canMoveDown(index)" />
+                      <q-btn dense class="q-ma-none" flat round color="red" icon="delete" @click="removeTrack(track)" />
+                    </div>
                   </q-item-section>
                 </q-item>
                 <q-item class="justify-center">
@@ -113,6 +119,29 @@ function removeTrack (track: WildseaTrack) {
   if (taskIndex !== -1) {
     editedTracklist.value.tracks.splice(taskIndex, 1);
   }
+}
+
+function canMoveUp (index: number) {
+  return editedTracklist.value && index > 0;
+}
+
+function canMoveDown (index: number) {
+  return editedTracklist.value && index < editedTracklist.value.tracks.length - 1;
+}
+
+function swapTracks (index1: number, index2: number) {
+  if (editedTracklist.value) {
+    const tracks = editedTracklist.value.tracks;
+    [tracks[index1], tracks[index2]] = [tracks[index2], tracks[index1]];
+  }
+}
+
+function moveUp (index: number) {
+  swapTracks(index, index - 1);
+}
+
+function moveDown (index: number) {
+  swapTracks(index, index + 1);
 }
 
 defineExpose({ editNew, editExisting });
