@@ -2,12 +2,23 @@
   <AmbianceView class="fullscreen" :ambiance="ambiance" />
   <q-list class="fullscreen column" v-if="globalStore.isWildseaVisible()">
     <q-item v-for="track in displayedTracks" :key="track.key || ''">
-      <q-card class="q-pa-sm" style="background-color: #ffffffcc">
+      <q-card class="q-pa-sm glass">
         <WildseaTrackView :track="track" :size="globalStore.getWildseaTracklistSize() + 'rem'" />
       </q-card>
     </q-item>
   </q-list>
 </template>
+
+<style>
+.glass {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+</style>
 
 <script lang="ts" setup>
 import AmbianceView from 'src/components/AmbianceView.vue';
