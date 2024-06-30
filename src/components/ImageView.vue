@@ -1,6 +1,13 @@
 <template>
-  <ImageSourceView :image="props.image?.source || null" />
+  <ImageSourceView :class="{ 'horizontal-mirror': image?.mirroredHorizontally }" :image="props.image?.source || null" />
 </template>
+
+<style>
+.horizontal-mirror {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+</style>
 
 <script setup lang="ts">
 import ImageSourceView from './ImageSourceView.vue';

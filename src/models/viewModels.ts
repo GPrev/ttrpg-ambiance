@@ -19,6 +19,7 @@ export interface ImageSource extends KeyedObject {
 
 export interface Image {
   source: ImageSource;
+  mirroredHorizontally: boolean;
 }
 
 export interface AudioSource extends KeyedObject {

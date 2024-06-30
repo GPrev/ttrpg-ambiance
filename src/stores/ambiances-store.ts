@@ -13,6 +13,7 @@ function convertDataModel(key: string, data: AmbianceData): Ambiance {
     background: data.background
       ? {
           source: imagesStore.get(data.background.source),
+          mirroredHorizontally: data.background.mirroredHorizontally,
         }
       : null,
     music: data.music
@@ -35,6 +36,7 @@ function convertToDataModel(model: Ambiance): AmbianceData {
     name: model.name,
     background: {
       source: model.background?.source.key || '',
+      mirroredHorizontally: model.background?.mirroredHorizontally || false,
     },
     music: {
       source: model.music?.source.key || '',

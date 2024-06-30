@@ -17,6 +17,7 @@ export interface ImageSourceData {
 
 export interface ImageData {
   source: string;
+  mirroredHorizontally: boolean;
 }
 
 export interface AudioSourceData {
