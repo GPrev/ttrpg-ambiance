@@ -92,7 +92,7 @@ function editExisting (tracklist: WildseaTracklist) {
   editedTracklist.value = {
     name: tracklist.name,
     key: tracklist.key,
-    tracks: tracklist.tracks,
+    tracks: [...tracklist.tracks],
   };
 }
 
