@@ -4,6 +4,9 @@
       <q-card-section>
         <div class="flex column no-wrap" v-if="editedAudio != null">
           <AudioSourceView :audio="editedAudio" class="image-big-vignette" />
+          <div class="row justify-center q-mt-xs">
+            <audio controls :src="editedAudio.url" />
+          </div>
           <q-input v-model="editedAudio.name" label="Name" />
           <q-input v-model="editedAudio.url" label="URL" />
           <q-field label="Volume" stack-label>

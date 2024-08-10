@@ -8,6 +8,8 @@
           <q-select v-model="editedAmbiance.background.source" label="Background"
             :options="Object.values(imagesStore.getAll())" option-label="name" />
           <q-checkbox v-model="editedAmbiance.background.mirroredHorizontally" label="Mirror Horizontally" />
+          <q-select v-model="editedAmbiance.music.source" label="Music"
+            :options="Object.values(audiosStore.getAll()).concat(noneAudio)" option-label="name" />
         </div>
       </q-card-section>
       <q-card-actions align="right">
@@ -20,14 +22,23 @@
 
 <script setup lang="ts">
 import AmbianceView from './AmbianceView.vue';
-import { Ambiance } from 'src/models/viewModels';
+import { Ambiance, AudioSource } from 'src/models/viewModels';
 import { useAmbiancesStore } from 'src/stores/ambiances-store';
+import { useAudiosStore } from 'src/stores/audios-store';
 import { useImagesStore } from 'src/stores/images-store';
 import { computed, ref, Ref } from 'vue';
 const ambiancesStore = useAmbiancesStore();
 const imagesStore = useImagesStore();
+const audiosStore = useAudiosStore();
 
 const editedAmbiance: Ref<Ambiance | null> = ref(null);
+
+const noneAudio: AudioSource = {
+  name: 'None',
+  key: '',
+  url: '',
+  volume: 0,
+};
 
 const popupOpen = computed({
   get () {

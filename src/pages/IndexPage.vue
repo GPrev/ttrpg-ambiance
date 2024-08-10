@@ -7,6 +7,20 @@
       </q-card>
     </q-item>
   </q-list>
+
+  <q-dialog v-model="musicDialog">
+    <q-card>
+      <q-card-section class="row items-center">
+        <q-avatar icon="music_note" color="primary" text-color="white" />
+        <span class="q-ml-sm">Turn on music ?</span>
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn flat label="No" color="primary" v-close-popup />
+        <q-btn flat label="Yes" color="primary" @click="() => { playMusic(ambiance); musicDialog = false; }" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
 <style>
@@ -23,12 +37,16 @@
 <script lang="ts" setup>
 import AmbianceView from 'src/components/AmbianceView.vue';
 import WildseaTrackView from 'src/components/wildsea/WildseaTrackView.vue';
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { WildseaTrack, WildseaTracklist } from 'src/models/wildsea/viewModels';
+import { Ambiance } from 'src/models/viewModels';
 import { useGlobalStore } from 'src/stores/global-store';
 import { useWildseaTracksStore } from 'src/stores/wildsea/tracks-store';
 const globalStore = useGlobalStore();
 const wildseaTracksStore = useWildseaTracksStore();
+
+const audio = ref(new Audio);
+const musicDialog = ref(false);
 
 const ambiance = computed(() => {
   return globalStore.getAmbiance();
@@ -53,4 +71,22 @@ const displayedTracks = computed(() => {
       .filter((track) => track.visible)
   );
 });
+
+function playMusic (ambiance: Ambiance) {
+  audio.value.pause()
+  if (ambiance.music.source) {
+    console.log('playing ' + ambiance.music.source.url)
+    audio.value.src = ambiance.music.source.url;
+    audio.value.loop = true;
+    audio.value.play().catch(() => {
+      console.log('catch...')
+      musicDialog.value = true;
+    });
+  }
+}
+
+watch(ambiance, async (newAmbiance) => {
+  playMusic(newAmbiance);
+});
+
 </script>
