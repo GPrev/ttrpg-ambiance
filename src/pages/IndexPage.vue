@@ -85,8 +85,9 @@ function playMusic (ambiance: Ambiance) {
   }
 }
 
-watch(ambiance, async (newAmbiance) => {
-  playMusic(newAmbiance);
+watch(ambiance, async (newAmbiance, oldAmbiance) => {
+  if (newAmbiance.music.source?.url != oldAmbiance.music.source?.url)
+    playMusic(newAmbiance);
 });
 
 </script>
