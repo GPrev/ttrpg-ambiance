@@ -3,10 +3,7 @@
     <q-spinner v-if="isLoading" color="primary" size="3em" />
     <div v-else>
       <div class="q-pa-md row items-start q-gutter-md">
-        <q-card
-          v-for="[audioKey, audio] of Object.entries(audios)"
-          :key="audioKey"
-        >
+        <q-card v-for="[audioKey, audio] of audios" :key="audioKey">
           <AudioSourceView :audio="audio" class="audio-vignette" />
 
           <q-card-section horizontal class="justify-between">
@@ -57,7 +54,7 @@ import AudioSourceEditDialog from 'src/components/AudioSourceEditDialog.vue';
 const audiosStore = useAudiosStore();
 
 const audios = computed(() => {
-  return audiosStore.getAll();
+  return [...Object.entries(audiosStore.getAll())].sort((a, b) => (a[1].name.localeCompare(b[1].name)))
 });
 const isLoading = computed(() => {
   return audiosStore.isLoading();

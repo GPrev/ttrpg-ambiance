@@ -3,7 +3,7 @@
     <q-spinner v-if="isLoading" color="primary" size="3em" />
     <div v-else>
       <div class="q-pa-md row items-start q-gutter-md">
-        <q-card v-for="[imageKey, tracklist] of Object.entries(tracklists)" :key="imageKey">
+        <q-card v-for="[imageKey, tracklist] of tracklists" :key="imageKey">
           <q-card-section horizontal class="justify-between">
             <q-card-section>
               <div class="text-h6">{{ tracklist.name }}</div>
@@ -34,7 +34,7 @@ import WildseaTracklistEditDialog from 'src/components/wildsea/WildseaTracklistE
 const wildseaTracklistsStore = useWildseaTracklistsStore();
 
 const tracklists = computed(() => {
-  return wildseaTracklistsStore.getAll();
+  return [...Object.entries(wildseaTracklistsStore.getAll())].sort((a, b) => (a[1].name.localeCompare(b[1].name)))
 });
 const isLoading = computed(() => {
   return wildseaTracklistsStore.isLoading();

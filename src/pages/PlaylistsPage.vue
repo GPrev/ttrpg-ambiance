@@ -2,10 +2,7 @@
   <q-page class="text-center q-pa-md flex flex-center">
     <q-spinner v-if="isLoading" color="primary" size="3em" />
     <div v-if="!isLoading" class="q-pa-md row items-start q-gutter-md">
-      <q-card
-        v-for="[playlistKey, playlist] of Object.entries(playlists)"
-        :key="playlistKey"
-      >
+      <q-card v-for="[playlistKey, playlist] of playlists" :key="playlistKey">
         <PlaylistView :playlist="playlist" class="image-vignette" />
 
         <q-card-section>
@@ -23,7 +20,7 @@ import { usePlaylistsStore } from 'src/stores/playlists-store';
 const playlistsStore = usePlaylistsStore();
 
 const playlists = computed(() => {
-  return playlistsStore.getAll();
+  return [...Object.entries(playlistsStore.getAll())].sort((a, b) => (a[1].name.localeCompare(b[1].name)))
 });
 const isLoading = computed(() => {
   return playlistsStore.isLoading();

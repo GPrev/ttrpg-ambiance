@@ -3,7 +3,7 @@
     <q-spinner v-if="isLoading" color="primary" size="3em" />
     <div v-else>
       <div class="q-pa-md row items-start justify-center q-gutter-md">
-        <q-card v-for="[imageKey, track] of Object.entries(tracks)" :key="imageKey">
+        <q-card v-for="[imageKey, track] of tracks" :key="imageKey">
           <q-card-section horizontal class="justify-between">
             <WildseaTrackView :track="track" class="size-vignette q-ma-xs" size="sm" />
             <q-card-actions horizontal>
@@ -33,7 +33,7 @@ import WildseaTrackEditDialog from 'src/components/wildsea/WildseaTrackEditDialo
 const wildseaTracksStore = useWildseaTracksStore();
 
 const tracks = computed(() => {
-  return wildseaTracksStore.getAll();
+  return [...Object.entries(wildseaTracksStore.getAll())].sort((a, b) => (a[1].name.localeCompare(b[1].name)))
 });
 const isLoading = computed(() => {
   return wildseaTracksStore.isLoading();

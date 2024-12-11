@@ -2,7 +2,7 @@
   <q-page class="text-center q-pa-md flex flex-center">
     <q-spinner v-if="isLoading" color="primary" size="3em" />
     <div v-if="!isLoading" class="q-pa-md row items-start q-gutter-md">
-      <q-card v-for="[ambianceKey, ambiance] of Object.entries(ambiances)" :key="ambianceKey" class="size-vignette">
+      <q-card v-for="[ambianceKey, ambiance] of ambiances" :key="ambianceKey" class="size-vignette">
         <AmbianceView :ambiance="ambiance" class="image-vignette" />
 
         <q-card-section horizontal class="justify-between">
@@ -35,7 +35,7 @@ import AmbianceEditDialog from 'src/components/AmbianceEditDialog.vue';
 const ambiancesStore = useAmbiancesStore();
 
 const ambiances = computed(() => {
-  return ambiancesStore.getAll();
+  return [...Object.entries(ambiancesStore.getAll())].sort((a, b) => (a[1].name.localeCompare(b[1].name)))
 });
 const isLoading = computed(() => {
   return ambiancesStore.isLoading();

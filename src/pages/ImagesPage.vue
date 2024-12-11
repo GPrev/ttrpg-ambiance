@@ -3,10 +3,7 @@
     <q-spinner v-if="isLoading" color="primary" size="3em" />
     <div v-else>
       <div class="q-pa-md row items-start q-gutter-md">
-        <q-card
-          v-for="[imageKey, image] of Object.entries(images)"
-          :key="imageKey"
-        >
+        <q-card v-for="[imageKey, image] of images" :key="imageKey">
           <ImageSourceView :image="image" class="image-vignette" />
 
           <q-card-section horizontal class="justify-between">
@@ -57,7 +54,7 @@ import ImageSourceEditDialog from 'src/components/ImageSourceEditDialog.vue';
 const imagesStore = useImagesStore();
 
 const images = computed(() => {
-  return imagesStore.getAll();
+  return [...Object.entries(imagesStore.getAll())].sort((a, b) => (a[1].name.localeCompare(b[1].name)))
 });
 const isLoading = computed(() => {
   return imagesStore.isLoading();
