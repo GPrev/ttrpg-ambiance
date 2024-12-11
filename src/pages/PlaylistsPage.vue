@@ -2,11 +2,11 @@
   <q-page class="text-center q-pa-md flex flex-center">
     <q-spinner v-if="isLoading" color="primary" size="3em" />
     <div v-if="!isLoading" class="q-pa-md row items-start q-gutter-md">
-      <q-card v-for="[playlistKey, playlist] of playlists" :key="playlistKey">
+      <q-card v-for="[playlistKey, playlist] of playlists" :key="playlistKey" class="size-vignette">
         <PlaylistView :playlist="playlist" class="image-vignette" />
 
-        <q-card-section>
-          <div class="text-h6">{{ playlist.name }}</div>
+        <q-card-section class="min-width-0">
+          <div class="text-h6 ellipsis">{{ playlist.name }}</div>
         </q-card-section>
       </q-card>
     </div>
