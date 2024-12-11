@@ -75,8 +75,10 @@ const displayedTracks = computed(() => {
 function playMusic (ambiance: Ambiance) {
   audio.value.pause()
   if (ambiance.music.source) {
-    console.log('playing ' + ambiance.music.source.url)
     audio.value.src = ambiance.music.source.url;
+    // 1 is the max allowed volume, the volume in the ambiance is always 1 for now, 200 is the max volume possible in the audios page
+    audio.value.volume = Math.min(1, ambiance.music.volume * ambiance.music.source.volume / 200);
+    console.log('playing ' + audio.value.src + ' at volume ' + audio.value.volume + ' (' + ambiance.music.volume + '*' + ambiance.music.source.volume + ')')
     audio.value.loop = true;
     audio.value.play().catch(() => {
       console.log('catch...')
@@ -86,7 +88,7 @@ function playMusic (ambiance: Ambiance) {
 }
 
 watch(ambiance, async (newAmbiance, oldAmbiance) => {
-  if (newAmbiance.music.source?.url != oldAmbiance.music.source?.url)
+  if (newAmbiance.music.source?.url != oldAmbiance?.music?.source?.url)
     playMusic(newAmbiance);
 });
 
