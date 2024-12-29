@@ -16,6 +16,7 @@ interface WildseaControl {
   tracklistsKeys: string[];
   visible: boolean;
   tracklistSize: number;
+  tracklistRightAlignment: boolean;
 }
 
 interface GlobalStoreState {
@@ -37,6 +38,7 @@ export const useGlobalStore = defineStore('global', {
         tracklistsKeys: [],
         visible: false,
         tracklistSize: 4,
+        tracklistRightAlignment: false,
       },
       loading: true,
     };
@@ -76,6 +78,9 @@ export const useGlobalStore = defineStore('global', {
     getWildseaTracklistSize(state: GlobalStoreState) {
       return () => state.wildseaControl.tracklistSize;
     },
+    isWildseaTracklistRightAlignment(state: GlobalStoreState) {
+      return () => state.wildseaControl.tracklistRightAlignment;
+    },
   },
 
   actions: {
@@ -93,6 +98,9 @@ export const useGlobalStore = defineStore('global', {
               this.wildseaControl.visible = doc.data().visible;
               this.wildseaControl.tracklistSize =
                 doc.data().tracklistSize || this.wildseaControl.tracklistSize;
+              this.wildseaControl.tracklistRightAlignment = Boolean(
+                doc.data().tracklistRightAlignment
+              );
             }
           }
         }
@@ -148,6 +156,12 @@ export const useGlobalStore = defineStore('global', {
       const itemDoc = doc(globalCollection, 'wildsea_control');
       updateDoc(itemDoc, {
         tracklistSize: size,
+      });
+    },
+    setWildseaTracklistRightAlignment(rightAlignment: boolean) {
+      const itemDoc = doc(globalCollection, 'wildsea_control');
+      updateDoc(itemDoc, {
+        tracklistRightAlignment: rightAlignment,
       });
     },
   },

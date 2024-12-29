@@ -1,6 +1,7 @@
 <template>
   <AmbianceView class="fullscreen" :ambiance="ambiance" />
-  <q-list class="fullscreen column" v-if="globalStore.isWildseaVisible()">
+  <q-list class="fullscreen column" v-if="globalStore.isWildseaVisible()"
+    :style="{ 'align-content': (globalStore.isWildseaTracklistRightAlignment() ? 'end' : 'baseline') }">
     <q-item v-for="track in displayedTracks" :key="track.key || ''" style="max-width: 33%;">
       <q-card class="q-pa-sm glass min-width-0">
         <WildseaTrackView :track="track" :size="globalStore.getWildseaTracklistSize() + 'rem'" />

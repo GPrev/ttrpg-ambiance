@@ -9,9 +9,9 @@
         <q-select class="col" v-model="ambiance" :options="ambiances" label="Ambiance" option-label="name"
           option-value="key" />
         <h5 class="q-mb-xs">Wildsea</h5>
-        <q-checkbox class="col" v-model="wildseaVisible" label="Display Tracks"
-          @update:model-value="(value) => globalStore.setWildseaVisible(value)" />
+        <q-checkbox class="col" v-model="wildseaVisible" label="Display Tracks" />
         <IntegerInput v-model="wildseaTracklistSize" label="Tracklist Size" />
+        <q-checkbox class="col" v-model="wildseaRightAlignTracks" label="Right Align Tracks" />
         <q-field label="Tracks" class="max-100 q-mt-sm" stack-label outlined>
           <template v-slot:control>
             <q-list class="col">
@@ -38,7 +38,7 @@
                       <q-btn dense class="q-ma-none" flat round color="primary" icon="block" @click="markTrack(track)"
                         :disable="!canMarkTrack(track)" />
                       <q-checkbox dense class="q-ma-none q-pa-sm" v-model="track.visible" checked-icon="visibility"
-                        unchecked-icon="visibility_off" @update:model-value="(value) => updateTrackVisibility(track, value)
+                        unchecked-icon="visibility_off" @update:model-value="(value: boolean) => updateTrackVisibility(track, value)
                           " />
                     </div>
                   </q-item-section>
@@ -161,6 +161,15 @@ const wildseaTracklistSize = computed({
   },
   set (size: number) {
     globalStore.setWildseaTracklistSize(size);
+  },
+});
+
+const wildseaRightAlignTracks = computed({
+  get () {
+    return globalStore.isWildseaTracklistRightAlignment();
+  },
+  set (rightAligned: boolean) {
+    globalStore.setWildseaTracklistRightAlignment(rightAligned);
   },
 });
 
