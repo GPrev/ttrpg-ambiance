@@ -11,7 +11,11 @@ function convertDataModel(
   return {
     key: key,
     name: data.name,
-    tracks: data.tracks.map((trackKey) => tracksStore.get(trackKey)),
+    tracks: data.tracks
+      .filter(function (trackKey) {
+        return tracksStore.get(trackKey) != null;
+      })
+      .map((trackKey) => tracksStore.get(trackKey)),
   };
 }
 
