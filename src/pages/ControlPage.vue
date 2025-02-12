@@ -50,7 +50,7 @@
                   :disable="absentWildseaTracklists.length == 0">
                   <q-list>
                     <q-item v-for="tracklist in absentWildseaTracklists" :key="tracklist.key || ''" clickable
-                      v-close-popup @click="addTracklist(tracklist)">
+                      @click="addTracklist(tracklist)">
                       <q-item-section>
                         <WildseaTracklistView :tracklist="tracklist" />
                       </q-item-section>
@@ -80,6 +80,7 @@ import { useAmbiancesStore } from 'src/stores/ambiances-store';
 import { usePlaylistsStore } from 'src/stores/playlists-store';
 import { useWildseaTracklistsStore } from 'src/stores/wildsea/tracklists-store';
 import { useWildseaTracksStore } from 'src/stores/wildsea/tracks-store';
+import { nameSort } from 'src/models/basicTypes';
 const globalStore = useGlobalStore();
 const playlistsStore = usePlaylistsStore();
 const ambiancesStore = useAmbiancesStore();
@@ -143,7 +144,7 @@ const absentWildseaTracklists = computed(() => {
   const allKeys = Object.keys(allTrackLists);
   const presentKeys = globalStore.getWildseaTracklistKeys();
   const absentKeys = allKeys.filter((key) => !presentKeys.includes(key));
-  return absentKeys.map((key) => allTrackLists[key]);
+  return absentKeys.map((key) => allTrackLists[key]).sort(nameSort);
 });
 
 const wildseaVisible = computed({

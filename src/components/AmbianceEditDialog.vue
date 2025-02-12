@@ -6,10 +6,10 @@
           <AmbianceView :ambiance="editedAmbiance" class="ambiance-big-vignette" />
           <q-input v-model="editedAmbiance.name" label="Name" />
           <q-select v-model="editedAmbiance.background.source" label="Background"
-            :options="Object.values(imagesStore.getAll())" option-label="name" />
+            :options="Object.values(imagesStore.getAll()).sort(nameSort)" option-label="name" />
           <q-checkbox v-model="editedAmbiance.background.mirroredHorizontally" label="Mirror Horizontally" />
           <q-select v-model="editedAmbiance.music.source" label="Music"
-            :options="Object.values(audiosStore.getAll()).concat(noneAudio)" option-label="name" />
+            :options="Object.values(audiosStore.getAll()).sort(nameSort).concat(noneAudio)" option-label="name" />
         </div>
       </q-card-section>
       <q-card-actions align="right">
@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import AmbianceView from './AmbianceView.vue';
+import { nameSort } from 'src/models/basicTypes';
 import { Ambiance, AudioSource } from 'src/models/viewModels';
 import { useAmbiancesStore } from 'src/stores/ambiances-store';
 import { useAudiosStore } from 'src/stores/audios-store';

@@ -53,6 +53,7 @@ import { computed, ref, Ref } from 'vue';
 import { WildseaTrack, WildseaTracklist } from 'src/models/wildsea/viewModels';
 import { useWildseaTracklistsStore } from 'src/stores/wildsea/tracklists-store';
 import { useWildseaTracksStore } from 'src/stores/wildsea/tracks-store';
+import { nameSort } from 'src/models/basicTypes';
 const wildseaTracklistsStore = useWildseaTracklistsStore();
 const wildseaTracksStore = useWildseaTracksStore();
 
@@ -77,7 +78,7 @@ const absentTracks = computed(() => {
   const allKeys = Object.keys(allTrackLists);
   const presentKeys = editedTracklist.value?.tracks.map((track) => track.key) || [];
   const absentKeys = allKeys.filter((key) => !presentKeys.includes(key));
-  return absentKeys.map((key) => allTrackLists[key]);
+  return absentKeys.map((key) => allTrackLists[key]).sort(nameSort);
 });
 
 function editNew () {

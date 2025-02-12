@@ -1,19 +1,16 @@
-import { KeyedObject } from './basicTypes';
+import { KeyedObject, NamedObject } from './basicTypes';
 
-export interface Ambiance extends KeyedObject {
-  name: string;
+export interface Ambiance extends KeyedObject, NamedObject {
   background: Image;
   music: Audio;
   sounds: Audio[];
 }
 
-export interface Playlist extends KeyedObject {
-  name: string;
+export interface Playlist extends KeyedObject, NamedObject {
   ambiances: Ambiance[];
 }
 
-export interface ImageSource extends KeyedObject {
-  name: string;
+export interface ImageSource extends KeyedObject, NamedObject {
   url: string;
 }
 
@@ -22,8 +19,7 @@ export interface Image {
   mirroredHorizontally: boolean;
 }
 
-export interface AudioSource extends KeyedObject {
-  name: string;
+export interface AudioSource extends KeyedObject, NamedObject {
   url: string;
   volume: number;
 }
